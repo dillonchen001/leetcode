@@ -1,7 +1,7 @@
 package main
 
 /**
- * Definition for singly-linked list.
+Definition for singly-linked list.
 **/
 type ListNode struct {
 	Val  int
@@ -9,15 +9,14 @@ type ListNode struct {
 }
 
 func partition(head *ListNode, x int) *ListNode {
+	start := &ListNode{0, nil}
+	start.Next = head
 	if head == nil {
 		return head
 	}
 
-	start := &ListNode{0, nil}
-	start.Next = head
-
-	pre := start
 	last := start
+	pre := start
 	flag := false
 
 	for pre.Next != nil {
@@ -29,13 +28,15 @@ func partition(head *ListNode, x int) *ListNode {
 				tmp := last.Next
 				last.Next = cur
 				cur.Next = tmp
+				last = cur
 			} else {
 				pre = cur
+				last = cur
 			}
-			last = cur
 		} else {
 			pre = cur
 			flag = true
 		}
 	}
+	return start.Next
 }
